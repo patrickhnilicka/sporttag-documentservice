@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+    <students>
+        <student>
+            <name>Disch Selina</name>
+        </student>
+        <student>
+            <name>Furrer Mai</name>
+        </student>
+        <student>
+            <name>Gerster Hannah</name>
+        </student>
+    </students>
+    <disziplinen>
+        <disziplin>
+            <name>Hochsprung</name>
+            <spalten>
+                <anzahl>3</anzahl>
+                <spalte />
+                <spalte />
+                <spalte />
+            </spalten>
+            <zeilen>
+                <anzahl>2</anzahl>
+                <zeile/>
+                <zeile/>
+            </zeilen>
+        </disziplin>
+        <disziplin>
+            <name>Weitsprung</name>
+            <spalten>
+                <anzahl>3</anzahl>
+                <spalte />
+                <spalte />
+                <spalte />
+            </spalten>
+        </disziplin>
+        <disziplin>
+            <name>Schleuderball 1kg</name>
+        </disziplin>
+        <disziplin>
+            <name>1500m</name>
+        </disziplin>
+        <disziplin>
+            <name>100m</name>
+        </disziplin>
+        <disziplin>
+            <name>Trampolin</name>
+        </disziplin>
+        <disziplin>
+            <name>Gerätebahn 01</name>
+        </disziplin>
+        <disziplin>
+            <name>Gerätebahn 02</name>
+        </disziplin>
+        <disziplin>
+            <name>Ropeskipping</name>
+        </disziplin>
+    </disziplinen>
+</root>

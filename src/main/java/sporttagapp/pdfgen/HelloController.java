@@ -3,17 +3,18 @@ package sporttagapp.pdfgen;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import org.springframework.http.HttpHeaders;
+
+import javax.xml.transform.TransformerException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.core.io.InputStreamResource;
+import org.xml.sax.SAXException;
 
 import sporttagapp.pdfgen.services.CreatePdfService;
 
@@ -32,11 +33,12 @@ public class HelloController {
     @GetMapping(value = "/get-pdf", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public  ResponseEntity<InputStreamResource>  getPdf() throws IOException {
         ByteArrayInputStream inputStream = null;
-        try (ByteArrayOutputStream ous = createPdfService.createRiegenPdf()) {
+        try (ByteArrayOutputStream pdfOutput = new ByteArrayOutputStream()) {
+            createPdfService.getPdf(pdfOutput);
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Disposition", "inline; filename=example.pdf");
 
-            byte[] bytes = ous.toByteArray();
+            byte[] bytes = pdfOutput.toByteArray();
 
             inputStream = new ByteArrayInputStream(bytes);
             return ResponseEntity
@@ -46,6 +48,10 @@ public class HelloController {
                     .body(new InputStreamResource(inputStream));
 
         } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        } catch (SAXException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        } catch (TransformerException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         } finally {
             if (inputStream != null) {
