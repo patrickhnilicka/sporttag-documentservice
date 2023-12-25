@@ -2,7 +2,7 @@
 <root>
     <students>
         <student>
-            <name>Disch Selina</name>
+            <name>Peter Muster</name>
         </student>
         <student>
             <name>Furrer Mai</name>
@@ -16,14 +16,9 @@
             <name>Hochsprung</name>
             <spalten>
                 <anzahl>3</anzahl>
-                <spalte />
-                <spalte />
-                <spalte />
             </spalten>
             <zeilen>
                 <anzahl>2</anzahl>
-                <zeile/>
-                <zeile/>
             </zeilen>
         </disziplin>
         <disziplin>

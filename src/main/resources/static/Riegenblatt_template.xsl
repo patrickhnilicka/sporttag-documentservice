@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:fo="http://www.w3.org/1999/XSL/Format" exclude-result-prefixes="fo">
-
-    <xsl:output method="xml" version="2.0" omit-xml-declaration="no" indent="yes" />
+    <xsl:output method="xml" version="1.0" omit-xml-declaration="no" indent="yes" />
     <xsl:template match="root">
         <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
             <fo:layout-master-set>
@@ -30,20 +28,16 @@
                                         mode="disziplinencolumns" />
                                 </fo:table-row>
                             </fo:table-header>
-
                             <fo:table-body>
                                 <xsl:apply-templates
                                     select="students/student" />
                             </fo:table-body>
                         </fo:table>
                     </fo:block>
-
                 </fo:flow>
             </fo:page-sequence>
         </fo:root>
     </xsl:template>
-
-
     <xsl:template match="student">
         <fo:table-row border="0.5px solid">
             <fo:table-cell>
@@ -53,20 +47,16 @@
             </fo:table-cell>
         </fo:table-row>
     </xsl:template>
-
     <xsl:template match="disziplin" mode="columns">
         <xsl:choose>
-            <xsl:when test="spalten/spalte">
-                <xsl:for-each select="spalten/spalte">
-                    <fo:table-column border="0.5px solid" />
-                </xsl:for-each>
+            <xsl:when test="spalten">
+                <xsl:apply-templates select="spalten"/>
             </xsl:when>
             <xsl:otherwise>
                 <fo:table-column border="0.5px solid" />
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
     <xsl:template match="disziplin" mode="disziplinencolumns">
         <fo:table-cell border="solid black 0.5px" padding="2px"
             font-weight="bold"
@@ -81,5 +71,10 @@
                 <xsl:value-of select="name" />
             </fo:block>
         </fo:table-cell>
+    </xsl:template>
+    <xsl:template match="spalten">
+        <xsl:for-each select="1 to anzahl">
+            <fo:table-column border="0.5px solid" />
+        </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>

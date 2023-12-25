@@ -34,12 +34,12 @@ public class CreatePdfService {
 			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, userAgent, pdfOutputStream);
 
 			// Load template
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			TransformerFactory transformerFactory = TransformerFactory.newInstance("net.sf.saxon.BasicTransformerFactory",null);
 			Transformer transformer = transformerFactory
 					.newTransformer(new StreamSource(new File("src/main/resources/static/Riegenblatt_template.xsl")));
 
 			// Set value of parameters in stylesheet
-			transformer.setParameter("version", "1.0");
+			transformer.setParameter("version", "2.0");
 
 			// Input for XSLT transformations
 			Source xmlSource = new StreamSource(new File("src/main/resources/static/data.xml"));
