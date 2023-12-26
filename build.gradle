@@ -19,14 +19,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop
 	implementation group: 'org.apache.xmlgraphics', name: 'fop', version: '2.9'
 	implementation group: 'net.sf.saxon', name: 'Saxon-HE', version: '12.4'
-	//implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.1'
-	// https://mvnrepository.com/artifact/xalan/xalan
-	//implementation group: 'xalan', name: 'xalan', version: '2.7.3'
-	// https://mvnrepository.com/artifact/xalan/serializer
-	//implementation group: 'xalan', name: 'serializer', version: '2.7.3'
+	//implementation group: 'org.apache.poi', name: 'poi', version: '5.2.5'
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '5.2.5'
 }
 
 tasks.named('test') {
