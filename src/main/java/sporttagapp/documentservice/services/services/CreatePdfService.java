@@ -1,4 +1,4 @@
-package sporttagapp.pdfgen.services;
+package sporttagapp.documentservice.services.services;
 
 import java.io.File;
 import java.io.IOException;

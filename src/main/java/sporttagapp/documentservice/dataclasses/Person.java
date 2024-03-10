@@ -1,4 +1,4 @@
-package sporttagapp.pdfgen.dataclasses;
+package sporttagapp.documentservice.dataclasses;
 public class Person {
     private String vorname;
     private String nachname;

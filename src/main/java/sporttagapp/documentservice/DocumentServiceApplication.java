@@ -1,13 +1,13 @@
-package sporttagapp.pdfgen;
+package sporttagapp.documentservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PdfgenApplication {
+public class DocumentServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PdfgenApplication.class, args);
+		SpringApplication.run(DocumentServiceApplication.class, args);
 	}
 
 }

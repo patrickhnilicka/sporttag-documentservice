@@ -1,32 +1,38 @@
-package sporttagapp.pdfgen;
+package sporttagapp.documentservice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.xml.sax.SAXException;
+import sporttagapp.documentservice.dataclasses.Student;
+import sporttagapp.documentservice.services.services.CreateExcelService;
+import sporttagapp.documentservice.services.services.CreatePdfService;
+import sporttagapp.documentservice.services.services.ExcelDataService;
+
+import javax.xml.transform.TransformerException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import org.springframework.http.HttpHeaders;
-
-import javax.xml.transform.TransformerException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.xml.sax.SAXException;
-
-import sporttagapp.pdfgen.services.CreateExcelService;
-import sporttagapp.pdfgen.services.CreatePdfService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
 public class HelloController {
 
-    @Autowired
     private CreatePdfService createPdfService;
-    @Autowired
     private CreateExcelService createExcelService;
+    private ExcelDataService excelDataService;
+
+    public HelloController(CreatePdfService createPdfService, CreateExcelService createExcelService, ExcelDataService excelDataService) {
+        this.createPdfService = createPdfService;
+        this.createExcelService = createExcelService;
+        this.excelDataService = excelDataService;
+    }
 
     @GetMapping("/hello")
     public String index() {
@@ -39,7 +45,7 @@ public class HelloController {
         try (ByteArrayOutputStream pdfOutput = new ByteArrayOutputStream()) {
             createPdfService.getPdf(pdfOutput);
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Disposition", "inline; filename=example.pdf");
+            //headers.add("Content-Disposition", "inline; filename=example.pdf");
 
             byte[] bytes = pdfOutput.toByteArray();
 
@@ -91,6 +97,18 @@ public class HelloController {
         }
         return ResponseEntity.ok().build();
         //return IOUtils.toByteArray(in); 
+    }
+
+    @PostMapping(value = "/get-students")
+    public String getStudentsFromExcel(@RequestParam("file")MultipartFile file) throws Exception {
+        List<Student> students;
+        students = excelDataService.getStudentDataFromExcel(file.getInputStream());
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(students);
+        } catch (JsonProcessingException e) {
+            return "";
+        }
     }
 
 }
