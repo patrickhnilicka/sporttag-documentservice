@@ -1,7 +1,6 @@
-package sporttagapp.documentservice.dataclasses;
+package org.sporttagapp.documentservice.dataclasses;
 import java.util.List;
 
-import sporttagapp.documentservice.dataclasses.Disziplin;
 public class Riegenblatt {
     private List<Person> personen;
     private List<Disziplin> disziplinen;

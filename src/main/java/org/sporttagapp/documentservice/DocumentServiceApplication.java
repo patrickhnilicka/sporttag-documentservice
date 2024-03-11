@@ -1,4 +1,4 @@
-package sporttagapp.documentservice;
+package org.sporttagapp.documentservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

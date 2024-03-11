@@ -1,4 +1,4 @@
-package sporttagapp.documentservice.dataclasses;
+package org.sporttagapp.documentservice.dataclasses;
 public class Disziplin {
     private String name;
     private String einheit;

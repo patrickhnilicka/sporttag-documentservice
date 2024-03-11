@@ -1,7 +1,9 @@
-package sporttagapp.documentservice;
+package org.sporttagapp.documentservice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.sporttagapp.documentservice.services.services.CreateExcelService;
+import org.sporttagapp.documentservice.services.services.CreatePdfService;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -9,10 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
-import sporttagapp.documentservice.dataclasses.Student;
-import sporttagapp.documentservice.services.services.CreateExcelService;
-import sporttagapp.documentservice.services.services.CreatePdfService;
-import sporttagapp.documentservice.services.services.ExcelDataService;
+import org.sporttagapp.documentservice.dataclasses.Student;
+import org.sporttagapp.documentservice.services.services.ExcelDataService;
 
 import javax.xml.transform.TransformerException;
 import java.io.ByteArrayInputStream;

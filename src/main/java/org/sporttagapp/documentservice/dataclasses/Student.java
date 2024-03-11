@@ -1,4 +1,4 @@
-package sporttagapp.documentservice.dataclasses;
+package org.sporttagapp.documentservice.dataclasses;
 
 
 import java.time.LocalDate;

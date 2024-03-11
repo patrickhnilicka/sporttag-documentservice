@@ -1,4 +1,4 @@
-package sporttagapp.documentservice.services.services;
+package org.sporttagapp.documentservice.services.services;
 
 import java.io.IOException;
 import java.io.OutputStream;

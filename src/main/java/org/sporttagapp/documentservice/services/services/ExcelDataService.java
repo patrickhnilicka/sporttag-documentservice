@@ -1,11 +1,11 @@
-package sporttagapp.documentservice.services.services;
+package org.sporttagapp.documentservice.services.services;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
-import sporttagapp.documentservice.dataclasses.Student;
+import org.sporttagapp.documentservice.dataclasses.Student;
 
 import java.io.InputStream;
 import java.text.DateFormat;
