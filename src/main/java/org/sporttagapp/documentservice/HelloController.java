@@ -2,6 +2,7 @@ package org.sporttagapp.documentservice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.sporttagapp.documentservice.dataclasses.SportklasseStudent;
 import org.sporttagapp.documentservice.services.services.CreateExcelService;
 import org.sporttagapp.documentservice.services.services.CreatePdfService;
 import org.springframework.core.io.InputStreamResource;
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
-import org.sporttagapp.documentservice.dataclasses.Student;
+import org.sporttagapp.documentservice.dataclasses.ExcelStudent;
 import org.sporttagapp.documentservice.services.services.ExcelDataService;
 
 import javax.xml.transform.TransformerException;
@@ -19,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -101,7 +103,7 @@ public class HelloController {
 
     @PostMapping(value = "/get-students")
     public String getStudentsFromExcel(@RequestParam("file")MultipartFile file) throws Exception {
-        List<Student> students;
+        List<ExcelStudent> students;
         students = excelDataService.getStudentDataFromExcel(file.getInputStream());
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -109,6 +111,34 @@ public class HelloController {
         } catch (JsonProcessingException e) {
             return "";
         }
+    }
+
+    @PostMapping(value = "/sportlehrerexcel", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public  ResponseEntity<InputStreamResource>  getSportlehrerExcel(@RequestBody Map<String, SportklasseStudent> sportklasseStudents) throws IOException {
+        ByteArrayInputStream inputStream = null;
+        try (ByteArrayOutputStream excelOutput = new ByteArrayOutputStream()) {
+            createExcelService.getSportlehrerExcel(sportklasseStudents, excelOutput);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline; filename=riegen.zip");
+
+            byte[] bytes = excelOutput.toByteArray();
+
+            inputStream = new ByteArrayInputStream(bytes);
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(new InputStreamResource(inputStream));
+
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+        }
+        return ResponseEntity.ok().build();
+        //return IOUtils.toByteArray(in);
     }
 
 }

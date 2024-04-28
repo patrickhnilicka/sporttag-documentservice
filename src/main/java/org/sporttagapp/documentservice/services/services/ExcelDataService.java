@@ -5,7 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
-import org.sporttagapp.documentservice.dataclasses.Student;
+import org.sporttagapp.documentservice.dataclasses.ExcelStudent;
 
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -27,7 +27,7 @@ public class ExcelDataService {
     private static List<String> columnHeaders = new ArrayList<>(Arrays.asList(gender, nachname, vorname, klasseZahl,
             klasseBuchstabe, geburtstag, sportklasse, lehrperson));
 
-    public List<Student> getStudentDataFromExcel(InputStream file) throws Exception {
+    public List<ExcelStudent> getStudentDataFromExcel(InputStream file) throws Exception {
         Map<String, Integer> columnNameToColumnIndexMap = new HashMap<>();
         XSSFWorkbook wb = new XSSFWorkbook(file);
         XSSFSheet ws = wb.getSheetAt(0);
@@ -46,7 +46,7 @@ public class ExcelDataService {
             }
         }
 
-        List<Student> students = new ArrayList<>();
+        List<ExcelStudent> students = new ArrayList<>();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         while (rowIterator.hasNext()) {
@@ -61,7 +61,7 @@ public class ExcelDataService {
                 throw new Exception("Fehler beim Parsen des Geburtsdatums auf Zeile " + row.getRowNum());
             }
 
-            students.add(new Student(
+            students.add(new ExcelStudent(
                     row.getCell(columnNameToColumnIndexMap.get(gender)).getStringCellValue(),
                     row.getCell(columnNameToColumnIndexMap.get(vorname)).getStringCellValue(),
                     row.getCell(columnNameToColumnIndexMap.get(nachname)).getStringCellValue(),
