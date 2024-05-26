@@ -98,7 +98,6 @@ public class HelloController {
             }
         }
         return ResponseEntity.ok().build();
-        //return IOUtils.toByteArray(in); 
     }
 
     @PostMapping(value = "/get-students")
@@ -119,7 +118,7 @@ public class HelloController {
         try (ByteArrayOutputStream excelOutput = new ByteArrayOutputStream()) {
             createExcelService.getSportlehrerExcel(sportklasseStudents, excelOutput);
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Disposition", "inline; filename=riegen.zip");
+            headers.add("Content-Disposition", "attachment; filename=riegen.zip");
 
             byte[] bytes = excelOutput.toByteArray();
 
