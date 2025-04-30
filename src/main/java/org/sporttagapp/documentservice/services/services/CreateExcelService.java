@@ -41,7 +41,7 @@ public class CreateExcelService {
         Iterator<Map.Entry<String, SportklasseStudent>> iterator = sportklasseStudentMap.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, SportklasseStudent> entry = iterator.next();
-            String sportlehrer = entry.getKey();
+            String sportklasse = entry.getKey();
             SportklasseStudent sportklasseStudent = entry.getValue();
             Workbook wb = new XSSFWorkbook();
             Sheet sheet = wb.createSheet();
@@ -52,10 +52,12 @@ public class CreateExcelService {
             Cell headerCellId = header.createCell(0);
             headerCellId.setCellValue("Id");
             Cell headerCellName = header.createCell(1);
-            headerCellName.setCellValue("Schüler");
-            Cell headerCellSportklasse = header.createCell(2);
+            headerCellName.setCellValue("Name");
+            Cell headerCellVorname = header.createCell(2);
+            headerCellVorname.setCellValue("Vorname");
+            Cell headerCellSportklasse = header.createCell(3);
             headerCellSportklasse.setCellValue("Sportklasse");
-            Cell headerCellRiege = header.createCell(3);
+            Cell headerCellRiege = header.createCell(4);
             headerCellRiege.setCellValue("Riege");
 
             // Add entries
@@ -65,14 +67,16 @@ public class CreateExcelService {
                 Cell cellId = row.createCell(0);
                 cellId.setCellValue(student.id());
                 Cell cellName = row.createCell(1);
-                cellName.setCellValue(student.vorname() + " " + student.nachname());
-                Cell cellSportklasse = row.createCell(2);
+                cellName.setCellValue(student.nachname());
+                Cell cellVorname = row.createCell(2);
+                cellVorname.setCellValue(student.vorname());
+                Cell cellSportklasse = row.createCell(3);
                 cellSportklasse.setCellValue(sportklasseStudent.klassenname());
                 ++rowNr;
             }
 
             // Add Excelfile to Zip
-            ZipEntry zipEntry = new ZipEntry(sportlehrer + ".xlsx");
+            ZipEntry zipEntry = new ZipEntry(sportklasse + ".xlsx");
             zipOut.putNextEntry(zipEntry);
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             wb.write(os);

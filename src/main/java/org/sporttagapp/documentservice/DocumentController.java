@@ -2,6 +2,7 @@ package org.sporttagapp.documentservice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.sporttagapp.documentservice.dataclasses.Riegenzuteilung;
 import org.sporttagapp.documentservice.dataclasses.SportklasseStudent;
 import org.sporttagapp.documentservice.services.services.CreateExcelService;
 import org.sporttagapp.documentservice.services.services.CreatePdfService;
@@ -24,13 +25,13 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
-public class HelloController {
+public class DocumentController {
 
     private CreatePdfService createPdfService;
     private CreateExcelService createExcelService;
     private ExcelDataService excelDataService;
 
-    public HelloController(CreatePdfService createPdfService, CreateExcelService createExcelService, ExcelDataService excelDataService) {
+    public DocumentController(CreatePdfService createPdfService, CreateExcelService createExcelService, ExcelDataService excelDataService) {
         this.createPdfService = createPdfService;
         this.createExcelService = createExcelService;
         this.excelDataService = excelDataService;
@@ -138,6 +139,17 @@ public class HelloController {
         }
         return ResponseEntity.ok().build();
         //return IOUtils.toByteArray(in);
+    }
+    @PostMapping(value = "/get-riegenzuteilung")
+    public String getRiegenzuteilungFromExcel(@RequestParam("file")MultipartFile file) throws Exception {
+        List<Riegenzuteilung> riegenzuteilungs;
+        riegenzuteilungs = excelDataService.getRiegenzuteilungFromExcel(file.getInputStream());
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(riegenzuteilungs);
+        } catch (JsonProcessingException e) {
+            return "";
+        }
     }
 
 }
